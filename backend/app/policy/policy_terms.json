@@ -1,0 +1,23 @@
+{
+  "_comment": "Policy scaffold — expand during implementation",
+  "version": "1.0.0",
+  "waiting_period_days": 30,
+  "claim_types": {
+    "consultation": {
+      "required_documents": ["prescription", "hospital_bill"],
+      "sub_limit": 5000
+    },
+    "hospitalization": {
+      "required_documents": ["discharge_summary", "hospital_bill"],
+      "sub_limit": 500000,
+      "high_value_threshold": 50000,
+      "high_value_extra_documents": ["discharge_summary"]
+    },
+    "pharmacy": {
+      "required_documents": ["prescription", "pharmacy_bill"],
+      "sub_limit": 10000
+    }
+  },
+  "excluded_diagnoses": [],
+  "partial_approval_rules": []
+}

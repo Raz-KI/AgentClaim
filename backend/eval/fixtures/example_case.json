@@ -1,0 +1,14 @@
+{
+  "_comment": "Example eval case scaffold",
+  "id": "case_001",
+  "input": {
+    "member_id": "MEM-001",
+    "claim_type": "hospitalization",
+    "claimed_amount": 75000,
+    "documents": []
+  },
+  "expected": {
+    "decision": "MANUAL_REVIEW",
+    "approved_amount": 0
+  }
+}
