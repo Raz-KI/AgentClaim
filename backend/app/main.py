@@ -1,1 +1,7 @@
-"""FastAPI application entrypoint — implement when coding begins."""
+from fastapi import FastAPI
+
+app = FastAPI(title="Plum Claims AI")
+
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}
