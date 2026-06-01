@@ -1,7 +1,10 @@
+"""FastAPI application entrypoint."""
 from fastapi import FastAPI
+from app.api.router import api_router
 
-app = FastAPI(title="Plum Claims AI")
+app = FastAPI(
+    title = "AgentClaim",
+    version = "1.0.0"
+)
 
-@app.get("/health")
-async def health():
-    return {"status": "healthy"}
+app.include_router(api_router)
