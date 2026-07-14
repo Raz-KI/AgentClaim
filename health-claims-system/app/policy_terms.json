@@ -1,0 +1,97 @@
+{
+    "CONSULTATION": {
+        "required": [
+            "PRESCRIPTION",
+            "HOSPITAL_BILL"
+        ],
+        "optional": [
+            "LAB_REPORT",
+            "DOCTOR_NOTES",
+            "MEDICAL_HISTORY"
+        ]
+    },
+    "SURGERY": {
+        "required": [
+            "SURGERY_REPORT",
+            "HOSPITAL_BILL",
+            "DISCHARGE_SUMMARY"
+        ],
+        "optional": [
+            "PRESCRIPTION",
+            "LAB_REPORT",
+            "SCAN_REPORT",
+            "DOCTOR_NOTES"
+        ]
+    },
+    "MEDICATION": {
+        "required": [
+            "PRESCRIPTION",
+            "PHARMACY_BILL"
+        ],
+        "optional": [
+            "DOCTOR_NOTES",
+            "LAB_REPORT"
+        ]
+    },
+    "DIAGNOSTIC_TEST": {
+        "required": [
+            "DOCTOR_REFERRAL",
+            "TEST_REPORT",
+            "LAB_BILL"
+        ],
+        "optional": [
+            "PRESCRIPTION",
+            "SCAN_REPORT",
+            "MEDICAL_HISTORY"
+        ]
+    },
+    "HOSPITALIZATION": {
+        "required": [
+            "ADMISSION_REPORT",
+            "DISCHARGE_SUMMARY",
+            "HOSPITAL_BILL"
+        ],
+        "optional": [
+            "PRESCRIPTION",
+            "LAB_REPORT",
+            "SCAN_REPORT",
+            "DOCTOR_NOTES",
+            "INSURANCE_FORM"
+        ]
+    },
+    "EMERGENCY": {
+        "required": [
+            "EMERGENCY_REPORT",
+            "HOSPITAL_BILL"
+        ],
+        "optional": [
+            "PRESCRIPTION",
+            "LAB_REPORT",
+            "SCAN_REPORT",
+            "DISCHARGE_SUMMARY"
+        ]
+    },
+    "DENTAL": {
+        "required": [
+            "DENTAL_REPORT",
+            "DENTAL_BILL"
+        ],
+        "optional": [
+            "PRESCRIPTION",
+            "X_RAY_REPORT",
+            "TREATMENT_PLAN"
+        ]
+    },
+    "PHYSIOTHERAPY": {
+        "required": [
+            "DOCTOR_REFERRAL",
+            "THERAPY_PLAN",
+            "THERAPY_BILL"
+        ],
+        "optional": [
+            "MEDICAL_HISTORY",
+            "PRESCRIPTION",
+            "PROGRESS_REPORT"
+        ]
+    }
+}

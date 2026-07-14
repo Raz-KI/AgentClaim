@@ -1,0 +1,14 @@
+[
+    {
+        "claim_id": "5c68240d-b2d7-46f3-84cf-e60ac684e22b",
+        "member_id": "string",
+        "claim_amount": 0.0,
+        "treatment_type": "string"
+    },
+    {
+        "claim_id": "23d29812-24a5-4a5e-b92f-03fc4829440a",
+        "member_id": "string",
+        "claim_amount": 0.0,
+        "treatment_type": "string"
+    }
+]
