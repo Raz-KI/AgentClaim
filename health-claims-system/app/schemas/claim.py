@@ -19,3 +19,7 @@ class ClaimResponse(BaseModel):
     claim_id: str
     status: str
     message: str
+
+class OCRResult(BaseModel):
+    text: str
+    confidence: float
