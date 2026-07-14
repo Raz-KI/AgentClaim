@@ -10,5 +10,11 @@
         "member_id": "string",
         "claim_amount": 0.0,
         "treatment_type": "string"
+    },
+    {
+        "claim_id": "344a32f3-7eee-4ae3-91e6-f6ece52bac90",
+        "member_id": "100",
+        "claim_amount": 90.0,
+        "treatment_type": "SURGERY"
     }
 ]

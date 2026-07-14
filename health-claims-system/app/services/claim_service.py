@@ -6,13 +6,31 @@ import uuid
 from pathlib import Path
 import shutil
 
+from app.repositories.policy_repo import PolicyRepo
+from app.services.document_verification import DocumentVerificationService
+
 from app.schemas.claim import ClaimCreate
 
 class ClaimService:
+    def __init__(self):
+        self.policy_repo = PolicyRepo()
+        self.document_verification_service = DocumentVerificationService(self.policy_repo)
+
     def submit_claim(self, claim: ClaimCreate, docs):
         claim_id = self._generate_claim_id()
+
+        verification = self.document_verification_service.verify_documents(claim.treatment_type, claim.docs_type)
+
+        if verification["valid"] is False:
+            return {
+                "claim_id": claim_id,
+                "status": "FAILED",
+                "message": verification["message"],
+                "missing_documents": verification["missing_documents"]
+            }
+
         upload_folder = self._create_upload_folder(claim_id)
-        self._save_uploaded_files(upload_folder, docs)
+        self._save_uploaded_files(upload_folder, docs, claim.docs_type)
         self._save_claim_to_json(claim_id, claim)
         return {
             "claim_id": claim_id,
@@ -29,11 +47,15 @@ class ClaimService:
         folder.mkdir(parents=True, exist_ok=True)
         return folder
     
-    def _save_uploaded_files(self,upload_folder, docs:list):
-        for i in docs:
-            file_path = Path(upload_folder) / i.filename
-            with open(file_path, "wb") as f:
-                shutil.copyfileobj(i.file, f)
+    def _save_uploaded_files(self, upload_folder, docs: list, docs_type: list):
+        for file, docs_type in zip(docs, docs_type):
+            extension = Path(file.filename).suffix
+            new_filename = f"{docs_type}{extension}"
+
+            file_path = upload_folder / new_filename
+
+            with open(file_path, "wb") as destination:
+                shutil.copyfileobj(file.file, destination)
 
     def _save_claim_to_json(self, claim_id, claim:ClaimCreate):
         claim_data = {

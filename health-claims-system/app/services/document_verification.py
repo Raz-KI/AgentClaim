@@ -6,6 +6,8 @@ class DocumentVerificationService:
         
     def verify_documents(self,treatment_type, documents):
         required_documents = self.policy_repo.get_doc_req(treatment_type)
+        print("Required Documents:", required_documents["required"])
+        print("Uploaded Documents:", documents)
         missing_docs = set(required_documents["required"]) - set(documents)
         if missing_docs:
             return {

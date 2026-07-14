@@ -1,7 +1,7 @@
 import json
 
 class PolicyRepo:
-    def __init__(self,file_path="app/policies/policy.json"):
+    def __init__(self,file_path="app/policy_terms.json"):
         self.file_path = file_path
         self.policy = self._load_policy()
 
@@ -14,6 +14,7 @@ class PolicyRepo:
             print("File not found")
     
     def get_doc_req(self, treatment_type):
+
         if self.policy:
             docs_required = self.policy[treatment_type]
             return docs_required

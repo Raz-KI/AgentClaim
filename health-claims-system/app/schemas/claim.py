@@ -13,6 +13,7 @@ class ClaimCreate(BaseModel):
     member_id: str
     claim_amount: float
     treatment_type: str
+    docs_type: list[str]
 
 class ClaimResponse(BaseModel):
     claim_id: str
