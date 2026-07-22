@@ -35,11 +35,7 @@ class Preprocessor:
 
 class GeminiDocumentExtractionService:
     def __init__(self, api_key: Optional[str] = None, model_name: str = "gemini-2.5-flash"):
-        # key = api_key or os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6JZN7vNZI3FLtU5id9NFsEt_0ymX3Q0kvaUz1J6hlOCHA")
-        # if not key:
-        #     raise ValueError("GEMINI_API_KEY must be provided or set in environment variables.")
         
-        # self.client = genai.Client(api_key=key)
         self.model_name = model_name
         self.client = genai.Client(enterprise=True, project="agentclaims-1234", location="us-central1"
 )

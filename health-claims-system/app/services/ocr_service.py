@@ -13,7 +13,7 @@ from google import genai
 from google.genai import types
 
 # Load API key safely from environment variable (or hardcode for quick local testing)
-GEMINI_API_KEY = "AQ.Ab8RN6JZN7vNZI3FLtU5id9NFsEt_0ymX3Q0kvaUz1J6hlOCHA"
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("Gemini-OCR-Pipeline")
