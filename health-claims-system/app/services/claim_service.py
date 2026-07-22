@@ -10,11 +10,21 @@ from app.repositories.policy_repo import PolicyRepo
 from app.services.document_verification import DocumentVerificationService
 
 from app.schemas.claim import ClaimCreate
+import os
+import uuid
+import logging
+from typing import List
+from fastapi import UploadFile
+
+from app.schemas.claim import ClaimCreate, ClaimResponse
+from app.schemas.claim import ExtractedDocument
+from app.services.document_processing_service import DocumentProcessingService
 
 class ClaimService:
     def __init__(self):
         self.policy_repo = PolicyRepo()
         self.document_verification_service = DocumentVerificationService(self.policy_repo)
+        self.document_processing_service = DocumentProcessingService()
 
     def submit_claim(self, claim: ClaimCreate, docs):
         claim_id = self._generate_claim_id()
@@ -30,8 +40,13 @@ class ClaimService:
             }
 
         upload_folder = self._create_upload_folder(claim_id)
-        self._save_uploaded_files(upload_folder, docs, claim.docs_type)
+        saved_paths = self._save_uploaded_files(upload_folder, docs, claim.docs_type)
         self._save_claim_to_json(claim_id, claim)
+        extractions: List[ExtractedDocument] = self.document_processing_service.process_documents(
+            file_paths=saved_paths,
+            docs_type=claim.docs_type
+        )
+        self._save_extracted_documents(claim_id, extractions)
         return {
             "claim_id": claim_id,
             "status": "SUBMITTED",
@@ -48,6 +63,7 @@ class ClaimService:
         return folder
     
     def _save_uploaded_files(self, upload_folder, docs: list, docs_type: list):
+        save_paths = []
         for file, docs_type in zip(docs, docs_type):
             extension = Path(file.filename).suffix
             new_filename = f"{docs_type}{extension}"
@@ -56,6 +72,15 @@ class ClaimService:
 
             with open(file_path, "wb") as destination:
                 shutil.copyfileobj(file.file, destination)
+            save_paths.append(file_path)
+
+        return save_paths
+    def _save_extracted_documents(self, claim_id, extractions: List[ExtractedDocument]):
+        extracted_data = [extraction.model_dump() for extraction in extractions]
+        json_file_path = Path(f"app/claims_submitted/{claim_id}/extracted_documents.json")
+
+        with open(json_file_path, "w") as f:
+            json.dump(extracted_data, f, indent=4)
 
     def _save_claim_to_json(self, claim_id, claim:ClaimCreate):
         claim_data = {

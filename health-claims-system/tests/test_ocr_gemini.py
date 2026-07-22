@@ -1,5 +1,3 @@
-
-
 import io
 import logging
 import os
@@ -102,7 +100,8 @@ class GeminiOCRService:
         )
 
         prompt = '''Document Type:
-        f{}
+        HOSPITAL_BILL
+
         Extract all relevant information required for insurance claim processing.
 
         Examples of important fields include:
